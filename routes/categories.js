@@ -1,6 +1,6 @@
-const ProductController = require(`../controllers/ProductController.js`);
+const CategoryController = require("../controllers/CategoryController");
 const router = require(`express`).Router();
 
-router.post(`/`, ProductController.createProduct)
+router.post(`/`, CategoryController.createCategory);
 
 module.exports = router;

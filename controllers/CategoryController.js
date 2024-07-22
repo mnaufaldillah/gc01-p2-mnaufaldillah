@@ -4,7 +4,12 @@ class CategoryController {
     static async createCategory(req, res) {
         try {
             const { name } = req.body;
-            console.log(name);
+            
+            const category = await Category.create({
+                name
+            });
+
+            res.status(201).json(category);
         } catch (error) {
             if(error.name === `SequelizeValidationError`) {
                 res.status(400).json({ message: error.errors[0].message });
