@@ -33,7 +33,100 @@ List of available endpoints:
 - `GET /products/pub`
 - `GET /products/pub/:productId`
 
-## 1. POST /products
+## 1. POST /add-user
+
+Description:
+- Creating a new user with email, password, phoneNumber, address, and username as the request body. With access_token as the request header
+
+- headers:
+```json
+{
+    "access_token": "string"
+}
+```
+
+Request:
+
+- body:
+```json
+{
+    "email": "string",
+    "password": "string",
+    "phoneNumber": "string",
+    "address": "string",
+    "username": "string"
+}
+```
+
+_Response (201 - Created)_
+```json
+{
+    "id": "integer",
+    "email": "string",
+    "phoneNumber": "string",
+    "address": "string",
+    "username": "string"
+}
+```
+
+_Response (400 - Bad Request)_
+```json
+{
+    "message": "Email is Required"
+}
+OR
+{
+    "message": "Invalid Email Format"
+}
+OR
+{
+    "message": "The Email is Already in Use"
+}
+OR
+{
+    "message": "Password is Required"
+}
+OR
+{
+    "message": "Minimum Password Length is 5"
+}
+```
+
+## 2. POST /login
+
+Description:
+- Creating access token if the email and password is available match for login access
+
+- body:
+```json
+{
+    "email": "string",
+    "password": "string",
+}
+```
+
+_Response (201 - Created)_
+```json
+{
+    "access_token": "string"
+}
+```
+
+_Response (400 - Bad Request)_
+```json
+{
+    "message": "Email and Password is Required"
+}
+```
+
+_Response (401 - Unauthorized)_
+```json
+{
+    "message": "Email or Password is Inavlid"
+}
+```
+
+## 3. POST /products
 
 Description:
 - Creating a new product with name, description, price, stock, imgUrl, categoryId, authorId as the request body
@@ -105,7 +198,7 @@ OR
 
 &nbsp;
 
-## 2. GET /products
+## 4. GET /products
 
 Description:
 - Getting the list of all Products including User model without password and Category model
@@ -154,7 +247,7 @@ _Response (200 - OK)_
 
 &nbsp;
 
-## 3. GET /products/:productId
+## 5. GET /products/:productId
 
 Description:
 - Getting Product data by id
@@ -217,7 +310,7 @@ _Response (404 - Not Found)_
 
 &nbsp;
 
-## 4. PUT /products/:productId
+## 6. PUT /products/:productId
 
 Description:
 - Update Product data by id
@@ -302,7 +395,7 @@ _Response (404 - Not Found)_
 
 &nbsp;
 
-## 5. DELETE /products/:productId
+## 7. DELETE /products/:productId
 
 Description:
 - Deelte Product data by id
@@ -338,7 +431,7 @@ _Response (404 - Not Found)_
 
 &nbsp;
 
-## 6. POST /categories
+## 8. POST /categories
 
 Description:
 - Creating a new category with name as the request body
@@ -378,7 +471,7 @@ _Response (400 - Bad Request)_
 
 &nbsp;
 
-## 7. GET /categories
+## 9. GET /categories
 
 Description:
 - Getting the list of all Categories
@@ -405,7 +498,7 @@ _Response (200 - OK)_
 
 &nbsp;
 
-## 8. PUT /categories/:categoryId
+## 10. PUT /categories/:categoryId
 
 Description:
 - Update Category data by id
@@ -458,7 +551,7 @@ _Response (404 - Not Found)_
 
 &nbsp;
 
-## 9. DELETE /categories/:categoryId
+## 11. DELETE /categories/:categoryId
 
 Description:
 - Delete Category data by id
@@ -501,7 +594,7 @@ _Response (404 - Not Found)_
 
 &nbsp;
 
-## 10. GET /products/pub
+## 12. GET /products/pub
 
 Description:
 - Getting the list of all Products including User model without password and Category model, for public site
@@ -550,7 +643,7 @@ _Response (200 - OK)_
 
 &nbsp;
 
-## 11. GET /products/pub/:productId
+## 13. GET /products/pub/:productId
 
 Description:
 - Getting Product data by id, for public site

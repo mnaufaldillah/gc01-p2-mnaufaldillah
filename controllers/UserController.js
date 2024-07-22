@@ -58,7 +58,7 @@ class UserController {
 
             const access_token = signToken({id: foundUser.id});
 
-            res.json({access_token})
+            res.status(200).json({access_token})
         } catch (error) {
             switch (error.name) {
                 case `CredentialsRequired`:
@@ -68,7 +68,7 @@ class UserController {
                     break;
                 case `Unauthorized`:
                     res.status(401).json({
-                        message: `Email and Password is Invalid`
+                        message: `Email or Password is Invalid`
                     })
                     break;
                 default:
