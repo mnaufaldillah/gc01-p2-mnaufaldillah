@@ -45,6 +45,34 @@ class ProductController {
             res.status(500).json({ message: `Internal Server Error` });
         }
     }
+
+    static async getProductById(req, res) {
+        try {
+            const { productId } = req.params
+
+            const product = await Product.findByPk(productId, {
+                include: [
+                    {
+                        model: User,
+                        attributes: {
+                            exclude: [`password`]
+                        }
+                    },
+                    {
+                        model: Category
+                    }
+                ]
+            });
+
+            if (!product) {
+                res.status(404).json({ message: `Product with ${productId} not found`})
+            } else {
+                res.status(200).json(product);
+            }
+        } catch (error) {
+            res.status(500).json({ message: `Internal Server Error` });
+        }
+    }
 }
 
 module.exports = ProductController;
