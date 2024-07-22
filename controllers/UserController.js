@@ -1,6 +1,7 @@
 const { comparePassword } = require(`../helpers/bcrypt.js`);
 const { User } = require(`../models/index.js`);
 const { signToken } = require(`../helpers/jwt.js`);
+const { where } = require("sequelize");
 
 class UserController {
     static async handlerAddUser(req, res) {
@@ -33,7 +34,31 @@ class UserController {
 
     static async handlerLogin(req, res) {
         try {
-            
+            const { email, password } = req.body;
+
+            if(!email || !password ) {
+                throw { name: `CredentialsRequired`}
+            }
+
+            const foundUser = await User.findOne({
+                where: {
+                    email
+                }
+            });
+
+            if(!foundUser) {
+                throw { name: `Unauthorized`}
+            }
+
+            const comparedPass = comparePassword(password, foundUser.password);
+
+            if(!comparedPass) {
+                throw { name: `Unauthorized`}
+            }
+
+            const access_token = signToken({id: foundUser.id});
+
+            res.json({access_token})
         } catch (error) {
             switch (error.name) {
                 case `CredentialsRequired`:
@@ -47,6 +72,7 @@ class UserController {
                     })
                     break;
                 default:
+                    console.log(error);
                     res.status(500).json({
                         message: `Internal Server Error`
                     })
