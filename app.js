@@ -1,11 +1,16 @@
-const express = require('express')
-const app = express()
-const port = 3000
+if(process.env.NODE_ENV !== `production`) {
+    require(`dotenv`).config();
+}
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+const express = require('express');
+const app = express();
+const port = 3000;
+const router = require(`./routes/index.js`)
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 
 app.listen(port, () => {
-  console.log(`Branded Things app listening on port ${port}`)
-})
+  console.log(`Server can be accessed in http://localhost:${port}`);
+});
