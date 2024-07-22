@@ -122,6 +122,28 @@ class ProductController {
             res.status(500).json({ message: `Internal Server Error` });
         }
     }
+
+    static async getProductsPublic(req, res) {
+        try {
+            const products = await Product.findAll({
+                include: [
+                    {
+                        model: User,
+                        attributes: {
+                            exclude: [`password`]
+                        }
+                    },
+                    {
+                        model: Category
+                    }
+                ]
+            });
+
+            res.status(200).json(products);
+        } catch (error) {
+            res.status(500).json({ message: `Internal Server Error` });
+        }
+    }
 }
 
 module.exports = ProductController;
