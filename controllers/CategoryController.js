@@ -53,6 +53,25 @@ class CategoryController {
             }
         }
     }
+
+    static async deleteCategoryById(req, res) {
+        try {
+            const { categoryId } = req.params;
+
+            const category = await Category.findByPk(categoryId);
+
+            if (!category) {
+                res.status(404).json({ message: `Product with id ${categoryId} not found`})
+            } else {
+                const categoryName = category.name;
+                await category.destroy();
+
+                res.status(200).json({ message: `${categoryName} success to delete`});
+            }
+        } catch (error) {
+            res.status(500).json({ message: `Internal Server Error` });
+        }
+    }
 }
 
 module.exports = CategoryController;
