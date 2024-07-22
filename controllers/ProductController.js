@@ -73,6 +73,32 @@ class ProductController {
             res.status(500).json({ message: `Internal Server Error` });
         }
     }
+
+    static async updateProductById(req, res) {
+        try {
+            const { productId } = req.params;
+            const { name, description, price, stock, categoryId, authorId } = req.body;
+
+            const product = await Product.findByPk(productId);
+
+            if (!product) {
+                res.status(404).json({ message: `Product with ${productId} not found`})
+            } else {
+                await product.update({
+                    name, 
+                    description, 
+                    price, 
+                    stock, 
+                    categoryId, 
+                    authorId
+                });
+
+                res.status(200).json(product);
+            }
+        } catch (error) {
+            res.status(500).json({ message: `Internal Server Error` });
+        }
+    }
 }
 
 module.exports = ProductController;
