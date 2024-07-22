@@ -82,7 +82,7 @@ class ProductController {
             const product = await Product.findByPk(productId);
 
             if (!product) {
-                res.status(404).json({ message: `Product with ${productId} not found`})
+                res.status(404).json({ message: `Product with id ${productId} not found`})
             } else {
                 await product.update({
                     name, 
@@ -94,6 +94,29 @@ class ProductController {
                 });
 
                 res.status(200).json(product);
+            }
+        } catch (error) {
+            if(error.name === `SequelizeValidationError`) {
+                res.status(400).json({ message: error.errors[0].message });
+            } else {
+                res.status(500).json({ message: `Internal Server Error` });
+            }
+        }
+    }
+
+    static async deleteProductById(req, res) {
+        try {
+            const { productId } = req.params;
+
+            const product = await Product.findByPk(productId);
+
+            if (!product) {
+                res.status(404).json({ message: `Product with id ${productId} not found`})
+            } else {
+                const productName = product.name;
+                await product.destroy();
+
+                res.status(200).json({ message: `${productName} success to delete`});
             }
         } catch (error) {
             res.status(500).json({ message: `Internal Server Error` });
