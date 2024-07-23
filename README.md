@@ -594,17 +594,10 @@ _Response (404 - Not Found)_
 
 &nbsp;
 
-## 12. GET /products/pub
+## 12. GET /pub/products/
 
 Description:
 - Getting the list of all Products including User model without password and Category model, for public site
-
-- headers:
-```json
-{
-    "access_token": "string"
-}
-```
 
 _Response (200 - OK)_
 ```json
@@ -643,17 +636,10 @@ _Response (200 - OK)_
 
 &nbsp;
 
-## 13. GET /products/pub/:productId
+## 13. GET /pub/products/:productId
 
 Description:
 - Getting Product data by id, for public site
-
-- headers:
-```json
-{
-    "access_token": "string"
-}
-```
 
 - params:
 ```json

@@ -3,7 +3,7 @@ const { Product, User, Category } = require(`../models/index.js`);
 class ProductController {
     static async createProduct(req, res, next) {
         try {
-            const { name, description, price, stock, categoryId, authorId } = req.body;
+            const { name, description, price, stock, categoryId } = req.body;
 
             const product = await Product.create({
                 name,
@@ -11,7 +11,7 @@ class ProductController {
                 price,
                 stock,
                 categoryId,
-                authorId
+                authorId : req.user
             });
 
             res.status(201).json(product);
@@ -73,7 +73,7 @@ class ProductController {
     static async updateProductById(req, res, next) {
         try {
             const { productId } = req.params;
-            const { name, description, price, stock, categoryId, authorId } = req.body;
+            const { name, description, price, stock, categoryId } = req.body;
 
             const product = await Product.findByPk(productId);
 
@@ -86,8 +86,7 @@ class ProductController {
                 description, 
                 price, 
                 stock, 
-                categoryId, 
-                authorId
+                categoryId
             });
 
             res.status(200).json(product);
@@ -110,56 +109,6 @@ class ProductController {
             await product.destroy();
 
             res.status(200).json({ message: `${productName} success to delete`});
-        } catch (error) {
-            next(error);
-        }
-    }
-
-    static async getProductsPublic(req, res, next) {
-        try {
-            const products = await Product.findAll({
-                include: [
-                    {
-                        model: User,
-                        attributes: {
-                            exclude: [`password`]
-                        }
-                    },
-                    {
-                        model: Category
-                    }
-                ]
-            });
-
-            res.status(200).json(products);
-        } catch (error) {
-            next(error);
-        }
-    }
-
-    static async getProductByIdPublic(req, res, next) {
-        try {
-            const { productId } = req.params
-
-            const product = await Product.findByPk(productId, {
-                include: [
-                    {
-                        model: User,
-                        attributes: {
-                            exclude: [`password`]
-                        }
-                    },
-                    {
-                        model: Category
-                    }
-                ]
-            });
-
-            if (!product) {
-                throw { name: `NotFound`, message: `Product with id ${productId} not found`};
-            }
-
-            res.status(200).json(product);
         } catch (error) {
             next(error);
         }

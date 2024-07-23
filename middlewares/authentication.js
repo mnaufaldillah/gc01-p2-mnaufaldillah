@@ -24,6 +24,7 @@ async function authentication(req, res, next) {
         }
 
         req.user = foundUser.id;
+        req.role = foundUser.role;
 
         next();
     } catch (error) {
