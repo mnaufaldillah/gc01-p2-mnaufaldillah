@@ -1,5 +1,4 @@
 const CategoryController = require("../controllers/CategoryController");
-const authentication = require(`../middlewares/authentication.js`);
 const router = require(`express`).Router();
 
 router.post(`/`, CategoryController.createCategory);

@@ -27,7 +27,7 @@ function errorHandler(error, req, res, next) {
             message = error.message;
             break;
     }
-
+    
     res.status(status).json({ message: message});
 }
 

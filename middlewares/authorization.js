@@ -15,7 +15,6 @@ async function authorization(req, res, next) {
             if(product.authorId !== req.user) {
                 throw { name: `Forbidden`};
             }
-
             next();
         }
     } catch (error) {
