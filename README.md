@@ -395,7 +395,59 @@ _Response (404 - Not Found)_
 
 &nbsp;
 
-## 7. DELETE /products/:productId
+## 7. PATCH /products/:productId/upload-image
+
+Description:
+- Upload and update Product image and image url data by id
+
+- headers:
+```json
+{
+    "access_token": "string"
+}
+```
+
+- params:
+```json
+{
+    "productId": "integer"
+}
+```
+
+- body:
+```json
+{
+    "image": "image"
+}
+```
+
+_Response (200 - OK)_
+
+```json
+{
+    "message": "Product Image success to update"
+}
+```
+
+_Response (400 - Bad request)_
+
+```json
+{
+  "message": "Product Image is Required"
+}
+```
+
+_Response (404 - Not Found)_
+
+```json
+{
+  "message": "Product with id <productId> not found"
+}
+```
+
+&nbsp;
+
+## 8. DELETE /products/:productId
 
 Description:
 - Deelte Product data by id
@@ -431,7 +483,7 @@ _Response (404 - Not Found)_
 
 &nbsp;
 
-## 8. POST /categories
+## 9. POST /categories
 
 Description:
 - Creating a new category with name as the request body
@@ -471,7 +523,7 @@ _Response (400 - Bad Request)_
 
 &nbsp;
 
-## 9. GET /categories
+## 10. GET /categories
 
 Description:
 - Getting the list of all Categories
@@ -498,7 +550,7 @@ _Response (200 - OK)_
 
 &nbsp;
 
-## 10. PUT /categories/:categoryId
+## 11. PUT /categories/:categoryId
 
 Description:
 - Update Category data by id
@@ -551,7 +603,7 @@ _Response (404 - Not Found)_
 
 &nbsp;
 
-## 11. DELETE /categories/:categoryId
+## 12. DELETE /categories/:categoryId
 
 Description:
 - Delete Category data by id
@@ -594,7 +646,7 @@ _Response (404 - Not Found)_
 
 &nbsp;
 
-## 12. GET /pub/products/
+## 13. GET /pub/products/
 
 Description:
 - Getting the list of all Products including User model without password and Category model, for public site
@@ -636,7 +688,7 @@ _Response (200 - OK)_
 
 &nbsp;
 
-## 13. GET /pub/products/:productId
+## 14. GET /pub/products/:productId
 
 Description:
 - Getting Product data by id, for public site
