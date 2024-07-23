@@ -1,7 +1,7 @@
 const { Category } = require(`../models/index.js`);
 
 class CategoryController {
-    static async createCategory(req, res) {
+    static async createCategory(req, res, next) {
         try {
             const { name } = req.body;
             
@@ -11,25 +11,21 @@ class CategoryController {
 
             res.status(201).json(category);
         } catch (error) {
-            if(error.name === `SequelizeValidationError`) {
-                res.status(400).json({ message: error.errors[0].message });
-            } else {
-                res.status(500).json({ message: `Internal Server Error` });
-            }
+            next(error);
         }
     }
 
-    static async getCategories(req, res) {
+    static async getCategories(req, res, next) {
         try {
             const categories = await Category.findAll();
 
             res.status(200).json(categories);
         } catch (error) {
-            res.status(500).json({ message: `Internal Server Error` });
+            next(error);
         }
     }
 
-    static async updateCategoryById(req, res) {
+    static async updateCategoryById(req, res, next) {
         try {
             const { categoryId } = req.params;
             const { name } = req.body;
@@ -37,39 +33,35 @@ class CategoryController {
             const category = await Category.findByPk(categoryId);
 
             if (!category) {
-                res.status(404).json({ message: `Product with id ${categoryId} not found`})
-            } else {
-                await category.update({
-                    name
-                });
+                throw { name: `NotFound`, message: `Category with id ${categoryId} not found`};
+            }
 
-                res.status(200).json(category);
-            }
+            await category.update({
+                name
+            });
+
+            res.status(200).json(category);
         } catch (error) {
-            if(error.name === `SequelizeValidationError`) {
-                res.status(400).json({ message: error.errors[0].message });
-            } else {
-                res.status(500).json({ message: `Internal Server Error` });
-            }
+            next(error);
         }
     }
 
-    static async deleteCategoryById(req, res) {
+    static async deleteCategoryById(req, res, next) {
         try {
             const { categoryId } = req.params;
 
             const category = await Category.findByPk(categoryId);
 
             if (!category) {
-                res.status(404).json({ message: `Product with id ${categoryId} not found`})
-            } else {
-                const categoryName = category.name;
-                await category.destroy();
+                throw { name: `NotFound`, message: `Category with id ${categoryId} not found`};
+            } 
 
-                res.status(200).json({ message: `${categoryName} success to delete`});
-            }
+            const categoryName = category.name;
+            await category.destroy();
+
+            res.status(200).json({ message: `${categoryName} success to delete`});
         } catch (error) {
-            res.status(500).json({ message: `Internal Server Error` });
+            next(error);
         }
     }
 }

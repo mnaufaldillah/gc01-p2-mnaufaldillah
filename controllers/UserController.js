@@ -4,7 +4,7 @@ const { signToken } = require(`../helpers/jwt.js`);
 const { where } = require("sequelize");
 
 class UserController {
-    static async handlerAddUser(req, res) {
+    static async handlerAddUser(req, res, next) {
         try {
             const { email, password, phoneNumber, address, username } = req.body;
 
@@ -22,22 +22,18 @@ class UserController {
                 phoneNumber: newUser.phoneNumber,
                 address: newUser.address,
                 username: newUser.username
-            })
+            });
         } catch (error) {
-            if(error.name === `SequelizeValidationError`) {
-                res.status(400).json({ message: error.errors[0].message });
-            } else {
-                res.status(500).json({ message: `Internal Server Error` });
-            }
+            next(error);
         }
     }
 
-    static async handlerLogin(req, res) {
+    static async handlerLogin(req, res, next) {
         try {
             const { email, password } = req.body;
 
             if(!email || !password ) {
-                throw { name: `CredentialsRequired`}
+                throw { name: `CredentialsRequired`, message: `Email and Password is Required`};
             }
 
             const foundUser = await User.findOne({
@@ -47,37 +43,20 @@ class UserController {
             });
 
             if(!foundUser) {
-                throw { name: `Unauthorized`}
+                throw { name: `Unauthorized`, message: `Email or Password is Invalid`};
             }
 
             const comparedPass = comparePassword(password, foundUser.password);
 
             if(!comparedPass) {
-                throw { name: `Unauthorized`}
+                throw { name: `Unauthorized`, message: `Email or Password is Invalid`};
             }
 
             const access_token = signToken({id: foundUser.id});
 
-            res.status(200).json({access_token})
+            res.status(200).json({access_token});
         } catch (error) {
-            switch (error.name) {
-                case `CredentialsRequired`:
-                    res.status(400).json({
-                        message: `Email and Password is Required`
-                    })
-                    break;
-                case `Unauthorized`:
-                    res.status(401).json({
-                        message: `Email or Password is Invalid`
-                    })
-                    break;
-                default:
-                    console.log(error);
-                    res.status(500).json({
-                        message: `Internal Server Error`
-                    })
-                    break;
-            }
+            next(error);
         }
     }
 }
