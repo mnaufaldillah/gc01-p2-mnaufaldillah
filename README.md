@@ -651,6 +651,16 @@ _Response (404 - Not Found)_
 Description:
 - Getting the list of all Products including User model without password and Category model, for public site
 
+- Query (Optional):
+```json
+{
+    "search": "string",
+    "categoryId": "integer",
+    "createdAt": "string (DESC or ASC)",
+    "page": "integr"
+}
+```
+
 _Response (200 - OK)_
 ```json
 [

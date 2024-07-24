@@ -180,7 +180,7 @@ describe(`POST /products`, () => {
 describe(`PUT /products/:productId`, () => {
     describe(`Success`, () => {
         test(`Success 200`, async () => {
-            const productId = 3
+            const productId = 3;
             const response = await request(app)
                 .put(`/products/${productId}`)
                 .send({ 
@@ -207,7 +207,7 @@ describe(`PUT /products/:productId`, () => {
 
     describe(`Failed`, () => {
         test(`Failed 401, Unauthenticated No Token`, async () => {
-            const productId = 3
+            const productId = 3;
             const response = await request(app)
                 .put(`/products/${productId}`)
                 .send({ 
@@ -225,7 +225,7 @@ describe(`PUT /products/:productId`, () => {
         })
 
         test(`Failed 500, Invalid Token`, async () => {
-            const productId = 3
+            const productId = 3;
             const response = await request(app)
                 .put(`/products/${productId}`)
                 .send({ 
@@ -244,7 +244,7 @@ describe(`PUT /products/:productId`, () => {
         })
 
         test(`Failed 404, Product Not Found`, async () => {
-            const productId = 24
+            const productId = 24;
             const response = await request(app)
                 .put(`/products/${productId}`)
                 .send({ 
@@ -263,7 +263,7 @@ describe(`PUT /products/:productId`, () => {
         })
 
         test(`Failed 403, Forbidden Updating Product for the Staff that are not their product`, async () => {
-            const productId = 5
+            const productId = 5;
             const response = await request(app)
                 .put(`/products/${productId}`)
                 .send({ 
@@ -282,7 +282,7 @@ describe(`PUT /products/:productId`, () => {
         })
 
         test(`Failed 400, No Name Input`, async () => {
-            const productId = 3
+            const productId = 3;
             const response = await request(app)
                 .put(`/products/${productId}`)
                 .send({ 
@@ -301,7 +301,7 @@ describe(`PUT /products/:productId`, () => {
         })
 
         test(`Failed 400, Price Below Minimum Price`, async () => {
-            const productId = 3
+            const productId = 3;
             const response = await request(app)
                 .put(`/products/${productId}`)
                 .send({ 
@@ -317,6 +317,75 @@ describe(`PUT /products/:productId`, () => {
 
             expect(response.body).toBeInstanceOf(Object);
             expect(response.body).toHaveProperty(`message`, `Minimum Product Price is Rp. 5.000,00`);
+        })
+    })
+})
+
+describe(`DELETE /products/:productId`, () => {
+    describe(`Success`, () => {
+        test(`Success 200`, async () => {
+            const productId = 7;
+            const productName = `Electric Wine Opener`;
+            const response = await request(app)
+                .delete(`/products/${productId}`)
+                .set(`Authorization`, `Bearer ${token}`);
+
+            // console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `${productName} success to delete`);
+        })
+    })
+
+    describe(`Failed`, () => {
+        test(`Failed 401, Unauthenticated No Token`, async () => {
+            const productId = 7;
+            const productName = `Electric Wine Opener`;
+            const response = await request(app)
+                .delete(`/products/${productId}`);
+
+        // console.log(response.body, `<---------- response body`);
+
+        expect(response.body).toBeInstanceOf(Object);
+        expect(response.body).toHaveProperty(`message`, `Unauthenticated`);
+        })
+
+        test(`Failed 500, Invalid Token`, async () => {
+            const productId = 3;
+            const productName = `Electric Wine Opener`;
+            const response = await request(app)
+                .delete(`/products/${productId}`)
+                .set(`Authorization`, `Bearer ${token}fwfbda`);
+
+            // console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `invalid signature`);
+        })
+
+        test(`Failed 404, Product Not Found`, async () => {
+            const productId = 24;
+            const response = await request(app)
+                .delete(`/products/${productId}`)
+                .set(`Authorization`, `Bearer ${token}`);
+
+            // console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `Product with id ${productId} not found`);
+        })
+
+        test(`Failed 403, Forbidden Updating Product for the Staff that are not their product`, async () => {
+            const productId = 5;
+            const productName = `Wireless Noise-Cancelling Headese`
+            const response = await request(app)
+                .delete(`/products/${productId}`)
+                .set(`Authorization`, `Bearer ${tokenStaff}`);
+
+            // console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `Forbidden Action`);
         })
     })
 })
