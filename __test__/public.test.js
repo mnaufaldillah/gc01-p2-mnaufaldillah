@@ -103,3 +103,32 @@ describe(`GET /pub/products`, () => {
         })
     })
 })
+
+describe(`GET /pub/products/:productId`, () => {
+    describe(`Success`, () => {
+        test(`Success 200`, async () => {
+            const productId = 4
+            const response = await request(app)
+                .get(`/pub/products/${productId}`);
+
+            // console.log(response.body, `<--------- data product -----`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`id`, productId);
+            expect(response.body).toHaveProperty(`name`, `Waterproof Football`);
+        })
+    })
+
+    describe(`Failed`, () => {
+        test(`Failed 200 Data Not Found`, async () => {
+            const productId = 24
+            const response = await request(app)
+                .get(`/pub/products/${productId}`);
+
+            // console.log(response.body, `<--------- data product -----`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `Product with id ${productId} not found`);
+        })
+    })
+})
