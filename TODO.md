@@ -78,9 +78,9 @@ Target:
 
 ### **API Documentation**
 
-- [ ] Route /path yang digunakan di aplikasi yang kamu buat
-- [ ] Informasi yang diperlukan oleh user saat ingin menggunakan route/path API (seperti body, header, parameter, dll)
-- [ ] Response serta status code yang akan didapatkan oleh pengguna (info, error, warning, dsb)
+- [v] Route /path yang digunakan di aplikasi yang kamu buat
+- [v] Informasi yang diperlukan oleh user saat ingin menggunakan route/path API (seperti body, header, parameter, dll)
+- [v] Response serta status code yang akan didapatkan oleh pengguna (info, error, warning, dsb)
 
 Lebih lanjut untuk contoh, bisa dilihat di:
 
@@ -92,52 +92,52 @@ Target:
 
 ### **Authentication + Authorization**
 
-- [ ] POST /add-user (khusus untuk staff, dilakukan oleh admin)
-  - [ ] Request Headers: { Authorization: "Bearer [your access token]" }
-  - [ ] Request body: { email, password }
-  - [ ] Response:
-    - [ ] 201: { id, email }
-    - [ ] 400: { errors }
+- [v] POST /add-user (khusus untuk staff, dilakukan oleh admin)
+  - [v] Request Headers: { Authorization: "Bearer [your access token]" }
+  - [v] Request body: { email, password }
+  - [v] Response:
+    - [v] 201: { id, email }
+    - [v] 400: { errors }
 
   Note: Pastikan password telah terhash sebelum data user masuk ke dalam database.
 
-- [ ] POST /login (semua role, baik admin atau staff)
-  - [ ] Request body: { email, password }
-  - [ ] Response:
-    - [ ] 200: { access_token, email/username, role }
-    - [ ] 401: { error invalid username or email or password }
+- [v] POST /login (semua role, baik admin atau staff)
+  - [v] Request body: { email, password }
+  - [v] Response:
+    - [v] 200: { access_token, email/username, role }
+    - [v] 401: { error invalid username or email or password }
 
-- [ ] Menambahkan Authentication dan Authorization
+- [v] Menambahkan Authentication dan Authorization
 
 | Role  | Create | Read  | Update                             | Delete                             |
 | ----- | ------ | ----- | ---------------------------------- | ---------------------------------- |
-| Admin | [ ] ✅  | [ ] ✅ | [ ] ✅                              | [ ] ✅                              |
-| Staff | [ ]  ✅ | [ ] ✅ | [ ] Hanya bisa menghapus miliknya. | [ ] Hanya bisa menghapus miliknya. |
+| Admin | [v] ✅  | [v] ✅ | [v] ✅                              | [v] ✅                              |
+| Staff | [v]  ✅ | [v] ✅ | [v] Hanya bisa menghapus miliknya. | [v] Hanya bisa menghapus miliknya. |
 
-- [ ] Error status code 401, apabila user yang belum login, atau yang mempunyai token yang salah mencoba mengakses endpoint CRD.
-- [ ] Error status code 403, apabila staff mengakses delete pada entitas yang bukan miliknya.
+- [v] Error status code 401, apabila user yang belum login, atau yang mempunyai token yang salah mencoba mengakses endpoint CRD.
+- [v] Error status code 403, apabila staff mengakses delete pada entitas yang bukan miliknya.
 
   Note: Untuk mengirim access_token, gunakan request header (diterima sebagai req.headers di Express).
 
 ### **Error Handler**
 
-- [ ] 401 - Error login user not found atau password not matched
-- [ ] 401 - Error authentication
-- [ ] 403 - Forbidden error di authorization
-- [ ] 400 - Error validation saat create.
-- [ ] 404 - Data not found.
-- [ ] 500 - Internal error server, dsb
+- [v] 401 - Error login user not found atau password not matched
+- [v] 401 - Error authentication
+- [v] 403 - Forbidden error di authorization
+- [v] 400 - Error validation saat create.
+- [v] 404 - Data not found.
+- [v] 500 - Internal error server, dsb
 
 ### **Upload File**
 
-- [ ] Meng-update data imgUrl entitas utama (Update / PATCH)
-  - [ ] Endpoint ini akan menerima request body berupa ("multipart/form-data") untuk meng-update data imgUrl.
-  - [ ] Id dikirimkan via request params.
-  - [ ] Membuat fitur upload menggunakan [multer](https://www.npmjs.com/package/multer) dan [imageKit](https://imagekit.io/)/[Cloudinary](https://cloudinary.com) untuk menyimpan file tersebut.
-  - [ ] Jika request berhasil, kembalikan response dengan 200 status code dan response body berupa object message: 'Image [entity name] success to update'
-  - [ ] Jika request gagal karena data tidak ditemukan, kembalikan response dengan status code 404 dan response body berupa object yang berisikan error not found.
-  - [ ] Jika request gagal karena validasi tidak terpenuhi, kembalikan response dengan status code 400 dan response body berupa object yang berisikan validation errors.
-  - [ ] Jika request gagal karena kesalahan server, kembalikan response dengan status code 500.
+- [v] Meng-update data imgUrl entitas utama (Update / PATCH)
+  - [v] Endpoint ini akan menerima request body berupa ("multipart/form-data") untuk meng-update data imgUrl.
+  - [v] Id dikirimkan via request params.
+  - [v] Membuat fitur upload menggunakan [multer](https://www.npmjs.com/package/multer) dan [imageKit](https://imagekit.io/)/[Cloudinary](https://cloudinary.com) untuk menyimpan file tersebut.
+  - [v] Jika request berhasil, kembalikan response dengan 200 status code dan response body berupa object message: 'Image [entity name] success to update'
+  - [v] Jika request gagal karena data tidak ditemukan, kembalikan response dengan status code 404 dan response body berupa object yang berisikan error not found.
+  - [v] Jika request gagal karena validasi tidak terpenuhi, kembalikan response dengan status code 400 dan response body berupa object yang berisikan validation errors.
+  - [v] Jika request gagal karena kesalahan server, kembalikan response dengan status code 500.
 
 ## **W1D3**
 
@@ -225,11 +225,11 @@ Mengimplementasikan testing terhadap endpoint yang sudah dibuat
 
 Mengimplementasikan sorting, pagination dan filter pada aplikasi server yang sudah dibuat
 
-- [ ] Get list entitas utama pada Public Site
-  - [ ] Search menggunakan title/name Entitas Utama
-  - [ ] Sorting berdasarkan data terbaru/terlama (ASC/DESC)
-  - [ ] Filter Entitas Utama berdasarkan Entitas Kedua (genres/categories/types)
-  - [ ] Pagination dengan limit data per page berjumlah 10
+- [v] Get list entitas utama pada Public Site
+  - [v] Search menggunakan title/name Entitas Utama
+  - [v] Sorting berdasarkan data terbaru/terlama (ASC/DESC)
+  - [v] Filter Entitas Utama berdasarkan Entitas Kedua (genres/categories/types)
+  - [v] Pagination dengan limit data per page berjumlah 10
 
 ## **W1D4 & W1D6**
 
