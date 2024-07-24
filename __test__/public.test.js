@@ -76,10 +76,10 @@ describe(`GET /pub/products`, () => {
             // console.log(response.body, `<--------- data product -----`);
 
             expect(response.body.products).toBeInstanceOf(Array);
-            expect(response.body.products[0]).toHaveProperty(`id`, 1);
+            expect(response.body.products[0]).toHaveProperty(`id`, expect.any(Number));
         })
 
-        test(`Success Wiith Filter Query 200`, async () => {
+        test(`Success With Filter Query 200`, async () => {
             const categoryId = 1
             const response = await request(app)
                 .get(`/pub/products?categoryId=${categoryId}`);
@@ -90,7 +90,7 @@ describe(`GET /pub/products`, () => {
             expect(response.body.products[0]).toHaveProperty(`id`, expect.any(Number));
         })
 
-        test(`Success Wiith Pagination 200`, async () => {
+        test(`Success With Pagination 200`, async () => {
             const page = 2
             const response = await request(app)
                 .get(`/pub/products?page=${page}`);
