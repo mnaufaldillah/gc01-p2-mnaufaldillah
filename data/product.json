@@ -25,5 +25,158 @@
         "stock": 5,
         "categoryId": 4,
         "authorId": 3
+    },
+    {
+        "id": 4,
+        "name": "Waterproof Football",
+        "description": "Beach Football",
+        "price": 15000,
+        "stock": 8,
+        "categoryId": 1,
+        "authorId": 2
+    },
+    {
+        "id": 5,
+        "name": "Bluetooth Shower Speaker",
+        "description": "Waterproof Speaker",
+        "price": 29000,
+        "stock": 12,
+        "categoryId": 3,
+        "authorId": 1
+    },
+    {
+        "id": 6,
+        "name": "Portable Blender",
+        "description": "USB Rechargeable",
+        "price": 450000,
+        "stock": 7,
+        "categoryId": 2,
+        "authorId": 3
+    },
+    {
+        "id": 7,
+        "name": "Electric Wine Opener",
+        "description": "Automatic Corkscrew",
+        "price": 320000,
+        "stock": 9,
+        "categoryId": 4,
+        "authorId": 2
+    },
+    {
+        "id": 8,
+        "name": "Smart Light Bulb",
+        "description": "WiFi Enabled",
+        "price": 180000,
+        "stock": 20,
+        "categoryId": 1,
+        "authorId": 1
+    },
+    {
+        "id": 9,
+        "name": "Fitness Tracker",
+        "description": "Heart Rate Monitor",
+        "price": 250000,
+        "stock": 14,
+        "categoryId": 5,
+        "authorId": 3
+    },
+    {
+        "id": 10,
+        "name": "Wireless Earbuds",
+        "description": "Noise Cancelling",
+        "price": 600000,
+        "stock": 6,
+        "categoryId": 2,
+        "authorId": 2
+    },
+    {
+        "id": 11,
+        "name": "Electric Toothbrush",
+        "description": "Rechargeable Battery",
+        "price": 350000,
+        "stock": 11,
+        "categoryId": 3,
+        "authorId": 1
+    },
+    {
+        "id": 12,
+        "name": "Portable Power Bank",
+        "description": "10000mAh Capacity",
+        "price": 220000,
+        "stock": 13,
+        "categoryId": 4,
+        "authorId": 3
+    },
+    {
+        "id": 13,
+        "name": "Smart Thermostat",
+        "description": "WiFi Controlled",
+        "price": 45000,
+        "stock": 4,
+        "categoryId": 1,
+        "authorId": 2
+    },
+    {
+        "id": 14,
+        "name": "Robot Vacuum Cleaner",
+        "description": "Automatic Cleaning",
+        "price": 80000,
+        "stock": 3,
+        "categoryId": 5,
+        "authorId": 1
+    },
+    {
+        "id": 15,
+        "name": "Instant Pot",
+        "description": "7-in-1 Cooker",
+        "price": 70000,
+        "stock": 5,
+        "categoryId": 2,
+        "authorId": 3
+    },
+    {
+        "id": 16,
+        "name": "Noise Cancelling Headphones",
+        "description": "Over-Ear Design",
+        "price": 65000,
+        "stock": 8,
+        "categoryId": 3,
+        "authorId": 2
+    },
+    {
+        "id": 17,
+        "name": "Smart Doorbell",
+        "description": "Video Camera",
+        "price": 50000,
+        "stock": 10,
+        "categoryId": 4,
+        "authorId": 1
+    },
+    {
+        "id": 18,
+        "name": "Electric Kettle",
+        "description": "Fast Boiling",
+        "price": 30000,
+        "stock": 16,
+        "categoryId": 1,
+        "authorId": 3
+    },
+    {
+        "id": 19,
+        "name": "Air Fryer",
+        "description": "Healthy Cooking",
+        "price": 55000,
+        "stock": 9,
+        "categoryId": 5,
+        "authorId": 2
+    },
+    {
+        "id": 20,
+        "name": "Smartwatch",
+        "description": "Fitness Tracker",
+        "price": 60000,
+        "stock": 7,
+        "categoryId": 2,
+        "authorId": 1
     }
 ]

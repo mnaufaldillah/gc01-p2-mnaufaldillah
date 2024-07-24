@@ -34,7 +34,7 @@ afterAll(async () => {
     try {
         await queryInterface.bulkDelete(`Users`, null, {
             truncate: true,
-            restartIdentify: true,
+            restartIdentity: true,
             cascade: true
         })
     } catch (error) {

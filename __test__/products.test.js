@@ -39,41 +39,41 @@ beforeAll(async () => {
             return item;
         });
 
-        console.log(dataProduct, `<--------- data product -----`);
+        // console.log(dataProduct, `<--------- data product -----`);
 
         await queryInterface.bulkInsert(`Users`, dataUser, {});
         await queryInterface.bulkInsert(`Categories`, dataCategory, {});
         await queryInterface.bulkInsert(`Products`, dataProduct, {});
 
         token = signToken({ id: 1 });
-        console.log(token, `<----------- token di before all`);
+        // console.log(token, `<----------- token di before all`);
         tokenStaff = signToken({ id: 3});
     } catch (error) {
-        console.log(error, '<<<<< error beforeall');
+        // console.log(error, '<<<<< error beforeall');
     }
 })
 
-// afterAll(async () => {
-//     try {
-//         await queryInterface.bulkDelete(`Products`, null, {
-//             truncate: true,
-//             restartIdentity: true,
-//             cascade: true
-//         });
-//         await queryInterface.bulkDelete(`Users`, null, {
-//             truncate: true,
-//             restartIdentity: true,
-//             cascade: true
-//         });
-//         await queryInterface.bulkDelete(`Categories`, null, {
-//             truncate: true,
-//             restartIdentity: true,
-//             cascade: true
-//         });
-//     } catch (error) {
-//         console.log(error);
-//     }
-// })
+afterAll(async () => {
+    try {
+        await queryInterface.bulkDelete(`Products`, null, {
+            truncate: true,
+            restartIdentity: true,
+            cascade: true
+        });
+        await queryInterface.bulkDelete(`Users`, null, {
+            truncate: true,
+            restartIdentity: true,
+            cascade: true
+        });
+        await queryInterface.bulkDelete(`Categories`, null, {
+            truncate: true,
+            restartIdentity: true,
+            cascade: true
+        });
+    } catch (error) {
+        console.log(error);
+    }
+})
 
 describe(`POST /products`, () => {
     describe(`Success`, () => {
@@ -85,12 +85,11 @@ describe(`POST /products`, () => {
                     description: `Crystal clear sound`,
                     price: 78000,
                     stock: 15,
-                    categoryId: 3,
-                    authorId: 2
+                    categoryId: 3
                 })
                 .set(`Authorization`, `Bearer ${token}`);
 
-                console.log(token, `<----------- token`);
+            // console.log(token, `<----------- token`);
             // console.log(response.body, `<---------- response body`);
 
             expect(response.body).toBeInstanceOf(Object);
@@ -100,65 +99,62 @@ describe(`POST /products`, () => {
             expect(response.body).toHaveProperty(`price`, 78000);
             expect(response.body).toHaveProperty(`stock`, 15);
             expect(response.body).toHaveProperty(`categoryId`, 3);
-            expect(response.body).toHaveProperty(`authorId`, 2);
+            expect(response.body).toHaveProperty(`authorId`, 1);
         })
     })
 
-    // describe(`Failed`, () => {
-    //     test(`Failed 400, No Email Input`, async () => {
-    //         const response = await request(app)
-    //             .post(`/login`)
-    //             .send({ 
-    //                 email: ``,
-    //                 password: `cheetah123`
-    //             });
+    describe(`Failed`, () => {
+        test(`Failed 401, Unauthenticated No Token`, async () => {
+            const response = await request(app)
+                .post(`/products`)
+                .send({ 
+                    name: `Wireless Noise-Cancelling Headese`,
+                    description: `Crystal clear sound v2`,
+                    price: 78000,
+                    stock: 15,
+                    categoryId: 3
+                });
 
-    //         // console.log(response.body, `<---------- response body`);
+            // console.log(response.body, `<---------- response body`);
 
-    //         expect(response.body).toBeInstanceOf(Object);
-    //         expect(response.body).toHaveProperty(`message`, `Email and Password is Required`);
-    //     })
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `Unauthenticated`);
+        })
 
-    //     test(`Failed 400, No Password Input`, async () => {
-    //         const response = await request(app)
-    //             .post(`/login`)
-    //             .send({ 
-    //                 email: `mnaufaldillah@gmail.com`,
-    //                 password: ``
-    //             });
+        test(`Failed 500, Invalid Token`, async () => {
+            const response = await request(app)
+                .post(`/products`)
+                .send({ 
+                    name: `Wireless Noise-Cancelling Headphones`,
+                    description: `Crystal clear sound`,
+                    price: 78000,
+                    stock: 15,
+                    categoryId: 3
+                })
+                .set(`Authorization`, `Bearer ${token}fwfbda`);
 
-    //         // console.log(response.body, `<---------- response body`);
+            // console.log(response.body, `<---------- response body`);
 
-    //         expect(response.body).toBeInstanceOf(Object);
-    //         expect(response.body).toHaveProperty(`message`, `Email and Password is Required`);
-    //     })
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `invalid signature`);
+        })
 
-    //     test(`Failed 400, Wrong Email Input`, async () => {
-    //         const response = await request(app)
-    //             .post(`/login`)
-    //             .send({ 
-    //                 email: `example@gmail.com`,
-    //                 password: `cheetah123`
-    //             });
+        test(`Failed 400, No Product Name Validation`, async () => {
+            const response = await request(app)
+                .post(`/products`)
+                .send({ 
+                    name: ``,
+                    description: `Crystal clear sound`,
+                    price: 78000,
+                    stock: 15,
+                    categoryId: 3
+                })
+                .set(`Authorization`, `Bearer ${token}`);
 
-    //         // console.log(response.body, `<---------- response body`);
+            // console.log(response.body, `<---------- response body`);
 
-    //         expect(response.body).toBeInstanceOf(Object);
-    //         expect(response.body).toHaveProperty(`message`, `Email or Password is Invalid`);
-    //     })
-
-    //     test(`Failed 400, Wrong Password Input`, async () => {
-    //         const response = await request(app)
-    //             .post(`/login`)
-    //             .send({ 
-    //                 email: `mnaufaldillah@gmail.com`,
-    //                 password: `12345`
-    //             });
-
-    //         // console.log(response.body, `<---------- response body`);
-
-    //         expect(response.body).toBeInstanceOf(Object);
-    //         expect(response.body).toHaveProperty(`message`, `Email or Password is Invalid`);
-    //     })
-    // })
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `Product Name is Required`);
+        })
+    })
 })
