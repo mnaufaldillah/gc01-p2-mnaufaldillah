@@ -4,7 +4,6 @@ if(process.env.NODE_ENV !== `production`) {
 
 const express = require('express');
 const app = express();
-const port = 3000;
 const router = require(`./routes/index.js`);
 const errorHandler = require(`./middlewares/errorHandler.js`);
 
@@ -15,7 +14,4 @@ app.use(`/`, router);
 
 app.use(errorHandler);
 
-
-app.listen(port, () => {
-  console.log(`Server can be accessed in http://localhost:${port}`);
-});
+module.exports = app
