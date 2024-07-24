@@ -156,5 +156,167 @@ describe(`POST /products`, () => {
             expect(response.body).toBeInstanceOf(Object);
             expect(response.body).toHaveProperty(`message`, `Product Name is Required`);
         })
+
+        test(`Failed 400, Price Below Minimum Price`, async () => {
+            const response = await request(app)
+                .post(`/products`)
+                .send({ 
+                    name: `Wireless Noise-Cancelling Headphones`,
+                    description: `Crystal clear sound`,
+                    price: 3000,
+                    stock: 15,
+                    categoryId: 3
+                })
+                .set(`Authorization`, `Bearer ${token}`);
+
+            // console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `Minimum Product Price is Rp. 5.000,00`);
+        })
+    })
+})
+
+describe(`PUT /products/:productId`, () => {
+    describe(`Success`, () => {
+        test(`Success 200`, async () => {
+            const productId = 3
+            const response = await request(app)
+                .put(`/products/${productId}`)
+                .send({ 
+                    name: `Wireless Noise-Cancelling Headphones`,
+                    description: `Crystal clear sound`,
+                    price: 78000,
+                    stock: 15,
+                    categoryId: 3
+                })
+                .set(`Authorization`, `Bearer ${token}`);
+
+            // console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`id`, 3);
+            expect(response.body).toHaveProperty(`name`, `Wireless Noise-Cancelling Headphones`);
+            expect(response.body).toHaveProperty(`description`, `Crystal clear sound`);
+            expect(response.body).toHaveProperty(`price`, 78000);
+            expect(response.body).toHaveProperty(`stock`, 15);
+            expect(response.body).toHaveProperty(`categoryId`, 3);
+            expect(response.body).toHaveProperty(`authorId`, 3);
+        })
+    })
+
+    describe(`Failed`, () => {
+        test(`Failed 401, Unauthenticated No Token`, async () => {
+            const productId = 3
+            const response = await request(app)
+                .put(`/products/${productId}`)
+                .send({ 
+                    name: `Wireless Noise-Cancelling Headese`,
+                    description: `Crystal clear sound v2`,
+                    price: 78000,
+                    stock: 15,
+                    categoryId: 3
+                });
+
+        // console.log(response.body, `<---------- response body`);
+
+        expect(response.body).toBeInstanceOf(Object);
+        expect(response.body).toHaveProperty(`message`, `Unauthenticated`);
+        })
+
+        test(`Failed 500, Invalid Token`, async () => {
+            const productId = 3
+            const response = await request(app)
+                .put(`/products/${productId}`)
+                .send({ 
+                    name: `Wireless Noise-Cancelling Headese`,
+                    description: `Crystal clear sound v2`,
+                    price: 78000,
+                    stock: 15,
+                    categoryId: 3
+                })
+                .set(`Authorization`, `Bearer ${token}fwfbda`);
+
+            // console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `invalid signature`);
+        })
+
+        test(`Failed 404, Product Not Found`, async () => {
+            const productId = 24
+            const response = await request(app)
+                .put(`/products/${productId}`)
+                .send({ 
+                    name: `Wireless Noise-Cancelling Headese`,
+                    description: `Crystal clear sound v2`,
+                    price: 78000,
+                    stock: 15,
+                    categoryId: 3
+                })
+                .set(`Authorization`, `Bearer ${token}`);
+
+            // console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `Product with id ${productId} not found`);
+        })
+
+        test(`Failed 403, Forbidden Updating Product for the Staff that are not their product`, async () => {
+            const productId = 5
+            const response = await request(app)
+                .put(`/products/${productId}`)
+                .send({ 
+                    name: `Wireless Noise-Cancelling Headese`,
+                    description: `Crystal clear sound v2`,
+                    price: 78000,
+                    stock: 15,
+                    categoryId: 3
+                })
+                .set(`Authorization`, `Bearer ${tokenStaff}`);
+
+            // console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `Forbidden Action`);
+        })
+
+        test(`Failed 400, No Name Input`, async () => {
+            const productId = 3
+            const response = await request(app)
+                .put(`/products/${productId}`)
+                .send({ 
+                    name: ``,
+                    description: `Crystal clear sound v2`,
+                    price: 78000,
+                    stock: 15,
+                    categoryId: 3
+                })
+                .set(`Authorization`, `Bearer ${token}`);
+
+            // console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `Product Name is Required`);
+        })
+
+        test(`Failed 400, Price Below Minimum Price`, async () => {
+            const productId = 3
+            const response = await request(app)
+                .put(`/products/${productId}`)
+                .send({ 
+                    name: `Wireless Noise-Cancelling Headphones`,
+                    description: `Crystal clear sound`,
+                    price: 3000,
+                    stock: 15,
+                    categoryId: 3
+                })
+                .set(`Authorization`, `Bearer ${token}`);
+
+            // console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `Minimum Product Price is Rp. 5.000,00`);
+        })
     })
 })
