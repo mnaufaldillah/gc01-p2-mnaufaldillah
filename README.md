@@ -92,6 +92,16 @@ OR
 }
 ```
 
+_Response (403 - Forbidden)_
+
+```json
+{
+    "message": "Forbidden Action"
+}
+```
+
+&nbsp;
+
 ## 2. POST /login
 
 Description:
@@ -385,6 +395,14 @@ OR
 }
 ```
 
+_Response (403 - Forbidden) (If Staff attempt to update product that they don't own)_
+
+```json
+{
+    "message": "Forbidden Action"
+}
+```
+
 _Response (404 - Not Found)_
 
 ```json
@@ -437,6 +455,14 @@ _Response (400 - Bad request)_
 }
 ```
 
+_Response (403 - Forbidden) (If Staff attempt to upload product image that they don't own)_
+
+```json
+{
+    "message": "Forbidden Action"
+}
+```
+
 _Response (404 - Not Found)_
 
 ```json
@@ -470,6 +496,14 @@ _Response (200 - OK)_
 ```json
 {
     "message": "<Product Name> success to delete"
+}
+```
+
+_Response (403 - Forbidden) (If Staff attempt to delete product that they don't own)_
+
+```json
+{
+    "message": "Forbidden Action"
 }
 ```
 
@@ -663,37 +697,43 @@ Description:
 
 _Response (200 - OK)_
 ```json
-[
-    {
-        "id" : "integer",
-        "name": "string",
-        "description": "string",
-        "price": "integer",
-        "stock": "integer",
-        "imgUrl": "string",
-        "categoryId": "integer",
-        "authorId": "integer",
-        "createdAt": "date",
-        "updatedAt": "date",
-        "User": {
-            "id" : "integer",
-            "username": "string",
-            "email": "string",
-            "role": "string",
-            "phoneNumber": "string",
-            "address": "string",
-            "createdAt": "date",
-            "updatedAt": "date"
-        },
-        "Category": {
+{
+    "page": "integer (default: 1)",
+    "totaldata": "integer (total data in Products table)",
+    "totalPage": "integer (total page for all data in pagination)",
+    "dataPerPage": "integer (default: 10 datas)"
+    "producs": "array of objects,"[
+        {
             "id" : "integer",
             "name": "string",
+            "description": "string",
+            "price": "integer",
+            "stock": "integer",
+            "imgUrl": "string",
+            "categoryId": "integer",
+            "authorId": "integer",
             "createdAt": "date",
-            "updatedAt": "date"
+            "updatedAt": "date",
+            "User": {
+                "id" : "integer",
+                "username": "string",
+                "email": "string",
+                "role": "string",
+                "phoneNumber": "string",
+                "address": "string",
+                "createdAt": "date",
+                "updatedAt": "date"
+            },
+            "Category": {
+                "id" : "integer",
+                "name": "string",
+                "createdAt": "date",
+                "updatedAt": "date"
+            }
         }
-    }
-    ...
-]
+        ...
+    ]
+}
 ```
 
 &nbsp;
@@ -760,7 +800,15 @@ _Response (401 - Unauthorized)_
 
 ```json
 {
-  "message": "Invalid token"
+  "message": "Unauthenticated"
+}
+```
+
+_Response (403 - Forbiddedn)_
+
+```json
+{
+  "message": "Forbidden Action"
 }
 ```
 
