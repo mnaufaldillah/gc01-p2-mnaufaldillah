@@ -147,79 +147,79 @@ Target:
 
 Mengimplementasikan testing terhadap endpoint yang sudah dibuat
 
-- [ ] Login (Admin), perlu melakukan pengecekan pada status dan response ketika:
-  - [ ] Email tidak diberikan / tidak diinput
-  - [ ] Password tidak diberikan / tidak diinput
-  - [ ] Email diberikan invalid / tidak terdaftar
-  - [ ] Password diberikan salah / tidak match
+- [v] Login (Admin), perlu melakukan pengecekan pada status dan response ketika:
+  - [v] Email tidak diberikan / tidak diinput
+  - [v] Password tidak diberikan / tidak diinput
+  - [v] Email diberikan invalid / tidak terdaftar
+  - [v] Password diberikan salah / tidak match
   - Pastikan untuk testing ini sediakan dulu data Admin
 
-- [ ] Add Staff, perlu melakukan pengecekan pada status dan response ketika:
-  - [ ] Berhasil register
-  - [ ] Email tidak diberikan / tidak diinput
-  - [ ] Password tidak diberikan / tidak diinput
-  - [ ] Email diberikan string kosong
-  - [ ] Password diberikan string kosong
-  - [ ] Email sudah terdaftar
-  - [ ] Format Email salah / invalid
-  - [ ] Gagal register staff karena admin belum login
-  - [ ] Gagal register staff karena token yang diberikan tidak valid (random string)
+- [v] Add Staff, perlu melakukan pengecekan pada status dan response ketika:
+  - [v] Berhasil register
+  - [v] Email tidak diberikan / tidak diinput
+  - [v] Password tidak diberikan / tidak diinput
+  - [v] Email diberikan string kosong
+  - [v] Password diberikan string kosong
+  - [v] Email sudah terdaftar
+  - [v] Format Email salah / invalid
+  - [v] Gagal register staff karena admin belum login
+  - [v] Gagal register staff karena token yang diberikan tidak valid (random string)
 
-- [ ] Create, perlu melakukan pengecekan pada status dan response ketika:
-  - [ ] Berhasil membuat entitas utama
-  - [ ] Gagal menjalankan fitur karena belum login
-  - [ ] Gagal menjalankan fitur karena token yang diberikan tidak valid  
-  - [ ] Gagal ketika request body tidak sesuai (validation required)
+- [v] Create, perlu melakukan pengecekan pada status dan response ketika:
+  - [v] Berhasil membuat entitas utama
+  - [v] Gagal menjalankan fitur karena belum login
+  - [v] Gagal menjalankan fitur karena token yang diberikan tidak valid  
+  - [v] Gagal ketika request body tidak sesuai (validation required)
   - Buatlah testing untuk masing-masing fitur
 
-- [ ] Read, perlu melakukan pengecekan pada status dan response ketika:
-  - [ ] Berhasil mendapatkan data Entitas Utama
+- [v] Read, perlu melakukan pengecekan pada status dan response ketika:
+  - [v] Berhasil mendapatkan data Entitas Utama
+  - [v] Gagal menjalankan fitur karena belum login
+  - [v] Gagal menjalankan fitur karena token yang diberikan tidak valid
+
+- [v] Read Detail, perlu melakukan pengecekan pada status dan response ketika:
+  - [v] Berhasil mendapatkan 1  Entitas Utama sesuai dengan params id yang diberikan
+  - [v] Gagal menjalankan fitur karena belum login
+  - [v] Gagal menjalankan fitur karena token yang diberikan tidak valid
+  - [v] Gagal mendapatkan Entitas Utama karena params id yang diberikan tidak ada di database / invalid
+
+- [v] Update PUT, perlu melakukan pengecekan pada status dan response ketika:
+  - [v] Berhasil mengupdate data Entitas Utama berdasarkan params id yang diberikan
+  - [v] Gagal menjalankan fitur karena belum login
+  - [v] Gagal menjalankan fitur karena token yang diberikan tidak valid
+  - [v] Gagal karena id entity yang dikirim tidak terdapat di database
+  - [v] Gagal menjalankan fitur ketika Staff mengolah data entity yang bukan miliknya
+  - [v] Gagal ketika request body yang diberikan tidak sesuai
+
+- [v] Delete, perlu melakukan pengecekan pada status dan response ketika:
+  - [v] Berhasil menghapus data Entitas Utama berdasarkan params id yang diberikan
+  - [v] Gagal menjalankan fitur karena belum login
+  - [v] Gagal menjalankan fitur karena token yang diberikan tidak valid
+  - [v] Gagal karena id entity yang dikirim tidak terdapat di database
+  - [v] Gagal menjalankan fitur ketika Staff menghapus entity yang bukan miliknya
+
+- [v] Update PATCH, perlu melakukan pengecekan pada status dan response ketika:
+  - [v] Berhasil mengupdate imgUrl Entitas Utama berdasarkan params id yang diberikan
   - [ ] Gagal menjalankan fitur karena belum login
   - [ ] Gagal menjalankan fitur karena token yang diberikan tidak valid
+  - [v] Gaga menjalankan fiturl karena id entity yang dikirim tidak terdapat di database
+  - [v] Gagal menjalankan fitur ketika Staff mengolah data entity yang bukan miliknya
+  - [v] Gagal ketika request body yang diberikan tidak sesuai
 
-- [ ] Read Detail, perlu melakukan pengecekan pada status dan response ketika:
-  - [ ] Berhasil mendapatkan 1  Entitas Utama sesuai dengan params id yang diberikan
-  - [ ] Gagal menjalankan fitur karena belum login
-  - [ ] Gagal menjalankan fitur karena token yang diberikan tidak valid
-  - [ ] Gagal mendapatkan Entitas Utama karena params id yang diberikan tidak ada di database / invalid
+- [v] Read  Entitas kedua data genres/categories/types  perlu melakukan pengecekan pada status dan response ketika:
+  - [v] Berhasil mendapatkan data entitas kedua
+  - [v] Gagal menjalankan fitur karena belum login
+  - [v] Gagal menjalankan fitur karena token yang diberikan tidak valid
 
-- [ ] Update PUT, perlu melakukan pengecekan pada status dan response ketika:
-  - [ ] Berhasil mengupdate data Entitas Utama berdasarkan params id yang diberikan
-  - [ ] Gagal menjalankan fitur karena belum login
-  - [ ] Gagal menjalankan fitur karena token yang diberikan tidak valid
-  - [ ] Gagal karena id entity yang dikirim tidak terdapat di database
-  - [ ] Gagal menjalankan fitur ketika Staff mengolah data entity yang bukan miliknya
-  - [ ] Gagal ketika request body yang diberikan tidak sesuai
-
-- [ ] Delete, perlu melakukan pengecekan pada status dan response ketika:
-  - [ ] Berhasil menghapus data Entitas Utama berdasarkan params id yang diberikan
-  - [ ] Gagal menjalankan fitur karena belum login
-  - [ ] Gagal menjalankan fitur karena token yang diberikan tidak valid
-  - [ ] Gagal karena id entity yang dikirim tidak terdapat di database
-  - [ ] Gagal menjalankan fitur ketika Staff menghapus entity yang bukan miliknya
-
-- [ ] Update PATCH, perlu melakukan pengecekan pada status dan response ketika:
-  - [ ] Berhasil mengupdate imgUrl Entitas Utama berdasarkan params id yang diberikan
-  - [ ] Gagal menjalankan fitur karena belum login
-  - [ ] Gagal menjalankan fitur karena token yang diberikan tidak valid
-  - [ ] Gaga menjalankan fiturl karena id entity yang dikirim tidak terdapat di database
-  - [ ] Gagal menjalankan fitur ketika Staff mengolah data entity yang bukan miliknya
-  - [ ] Gagal ketika request body yang diberikan tidak sesuai
-
-- [ ] Read  Entitas kedua data genres/categories/types  perlu melakukan pengecekan pada status dan response ketika:
-  - [ ] Berhasil mendapatkan data entitas kedua
-  - [ ] Gagal menjalankan fitur karena belum login
-  - [ ] Gagal menjalankan fitur karena token yang diberikan tidak valid
-
-- [ ] Endpoint  List pada public site,  perlu melakukan pengecekan pada status dan response ketika:
-  - [ ] Berhasil mendapatkan Entitas Utama tanpa menggunakan query filter parameter
-  - [ ] Berhasil mendapatkan Entitas Utama dengan 1 query filter parameter
-  - [ ] Berhasil mendapatkan  Entitas Utama serta panjang yang sesuai ketika memberikan page tertentu (cek pagination-nya)
+- [v] Endpoint  List pada public site,  perlu melakukan pengecekan pada status dan response ketika:
+  - [v] Berhasil mendapatkan Entitas Utama tanpa menggunakan query filter parameter
+  - [v] Berhasil mendapatkan Entitas Utama dengan 1 query filter parameter
+  - [v] Berhasil mendapatkan  Entitas Utama serta panjang yang sesuai ketika memberikan page tertentu (cek pagination-nya)
   - Pastikan untuk testing ini sediakan dulu sekitar 20 data untuk diinput di beforeAll, sehingga kita bisa melakukan ekspektasi pada data dan jumlahnya yang kita dapat ketika filter dan pagination
 
-- [ ] Endpoint  Detail pada public site,  perlu melakukan pengecekan pada status dan response ketika:
-  - [ ] Berhasil mendapatkan 1  Entitas Utama sesuai dengan params id yang diberikan
-  - [ ] Gagal mendapatkan Entitas Utama karena params id yang diberikan tidak ada di database / invalid
+- [v] Endpoint  Detail pada public site,  perlu melakukan pengecekan pada status dan response ketika:
+  - [v] Berhasil mendapatkan 1  Entitas Utama sesuai dengan params id yang diberikan
+  - [v] Gagal mendapatkan Entitas Utama karena params id yang diberikan tidak ada di database / invalid
 
 ### **Sorting and Pagination, Filter**
 

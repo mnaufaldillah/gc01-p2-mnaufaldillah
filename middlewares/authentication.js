@@ -3,6 +3,7 @@ const { verifyToken } = require(`../helpers/jwt.js`);
 
 async function authentication(req, res, next) {
     try {
+        console.log(`Masuk!!<-------------`);
         const access_token = req.headers.authorization;
 
         if(!access_token) {
@@ -28,6 +29,7 @@ async function authentication(req, res, next) {
 
         next();
     } catch (error) {
+        console.log(error, `<------------ eror Authentication`);
         next(error);
     }
 }

@@ -412,6 +412,90 @@ describe(`PUT /products/:productId`, () => {
     })
 })
 
+describe(`PATCH /products/:productId/upload-image`, () => {
+    describe(`Success`, () => {
+        test(`Success 200`, async () => {
+            const productId = 3;
+            const response = await request(app)
+                .patch(`/products/${productId}/upload-image`)
+                .attach('image', './files/OIG1.jpg')
+                .set(`Authorization`, `Bearer ${token}`);
+
+            // console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `Product Image success to update`);
+        })
+    })
+
+    describe(`Failed`, () => {
+        test.only(`Failed 401, Unauthenticated No Token`, async () => {
+            const productId = 3;
+            const response = await request(app)
+                .patch(`/products/${productId}/upload-image`)
+                .attach('image', './files/OIG1.jpg')
+
+            console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `Unauthenticated`);
+        })
+
+        test(`Failed 500, Invalid Token`, async () => {
+            const productId = 3;
+            const response = await request(app)
+                .patch(`/products/${productId}/upload-image`)
+                
+                .attach('image', './files/OIG1.jpg')
+                .set(`Authorization`, `Bearer ${token}fwfbda`);
+
+            // console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `invalid signature`);
+        })
+
+        test(`Failed 404, Product Not Found`, async () => {
+            const productId = 24;
+            const response = await request(app)
+                .patch(`/products/${productId}/upload-image`)
+                .attach('image', './files/OIG1.jpg')
+                .set(`Authorization`, `Bearer ${tokenStaff}`);
+
+            // console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `Product with id ${productId} not found`);
+        })
+
+        test(`Failed 403, Forbidden Updating Product for the Staff that are not their product`, async () => {
+            const productId = 5;
+            const response = await request(app)
+                .patch(`/products/${productId}/upload-image`)
+                .attach('image', './files/OIG1.jpg')
+                .set(`Authorization`, `Bearer ${tokenStaff}`);
+
+            // console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `Forbidden Action`);
+        })
+
+        test(`Failed 400, No Image Attached`, async () => {
+            const productId = 3;
+            const response = await request(app)
+                .patch(`/products/${productId}/upload-image`)
+                .attach('image', '')
+                .set(`Authorization`, `Bearer ${token}`);
+
+            // console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `Cannot read properties of undefined (reading 'buffer')`);
+        })
+    })
+})
+
 describe(`DELETE /products/:productId`, () => {
     describe(`Success`, () => {
         test(`Success 200`, async () => {
