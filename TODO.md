@@ -200,8 +200,8 @@ Mengimplementasikan testing terhadap endpoint yang sudah dibuat
 
 - [v] Update PATCH, perlu melakukan pengecekan pada status dan response ketika:
   - [v] Berhasil mengupdate imgUrl Entitas Utama berdasarkan params id yang diberikan
-  - [ ] Gagal menjalankan fitur karena belum login
-  - [ ] Gagal menjalankan fitur karena token yang diberikan tidak valid
+  - [v] Gagal menjalankan fitur karena belum login
+  - [v] Gagal menjalankan fitur karena token yang diberikan tidak valid
   - [v] Gaga menjalankan fiturl karena id entity yang dikirim tidak terdapat di database
   - [v] Gagal menjalankan fitur ketika Staff mengolah data entity yang bukan miliknya
   - [v] Gagal ketika request body yang diberikan tidak sesuai
