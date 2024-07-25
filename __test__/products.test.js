@@ -179,10 +179,39 @@ describe(`POST /products`, () => {
 
 describe(`GET /products`, () => {
     describe(`Success`, () => {
+        test(`Success 200`, async () => {
+            const response = await request(app)
+                .get(`/products`)
+                .set(`Authorization`, `Bearer ${token}`);
+
+            // console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Array);
+            expect(response.body[0]).toHaveProperty(`id`, expect.any(Number));
+        })
     })
 
     describe(`Failed`, () => {
+        test(`Failed 401, Unauthenticated No Token`, async () => {
+            const response = await request(app)
+                .get(`/products`);
 
+            // console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `Unauthenticated`);
+        })
+
+        test(`Failed 500, Invalid Token`, async () => {
+            const response = await request(app)
+                .get(`/products`)
+                .set(`Authorization`, `Bearer ${token}fwfbda`);
+
+            // console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `invalid signature`);
+        })
     })
 })
 
