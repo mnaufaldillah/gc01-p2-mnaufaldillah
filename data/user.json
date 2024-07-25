@@ -3,7 +3,7 @@
         "id": 1,
         "username": "mnaufaldillah",
         "email": "mnaufaldillah@gmail.com",
-        "password": "cheetah123",
+        "password": "12345",
         "role": "Admin"
     },
     {
@@ -17,7 +17,7 @@
         "id": 3,
         "username": "richardBuffet",
         "email": "rcarr@gmail.com",
-        "password": "cheetah123",
+        "password": "12345",
         "role": "Staff"
     }
 ]

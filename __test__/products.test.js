@@ -177,6 +177,15 @@ describe(`POST /products`, () => {
     })
 })
 
+describe(`GET /products`, () => {
+    describe(`Success`, () => {
+    })
+
+    describe(`Failed`, () => {
+
+    })
+})
+
 describe(`PUT /products/:productId`, () => {
     describe(`Success`, () => {
         test(`Success 200`, async () => {
