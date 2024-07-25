@@ -215,6 +215,59 @@ describe(`GET /products`, () => {
     })
 })
 
+describe(`GET /products/:productId`, () => {
+    describe(`Success`, () => {
+        test(`Success 200`, async () => {
+            const productId = 3;
+            const response = await request(app)
+                .get(`/products/${productId}`)
+                .set(`Authorization`, `Bearer ${token}`);
+
+            // console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`id`, productId);
+        })
+    })
+
+    describe(`Failed`, () => {
+        test(`Failed 401, Unauthenticated No Token`, async () => {
+            const productId = 3;
+            const response = await request(app)
+                .get(`/products/${productId}`);
+
+            // console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `Unauthenticated`);
+        })
+
+        test(`Failed 500, Invalid Token`, async () => {
+            const productId = 3;
+            const response = await request(app)
+                .get(`/products/${productId}`)
+                .set(`Authorization`, `Bearer ${token}fwfbda`);
+
+            // console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `invalid signature`);
+        })
+
+        test(`Failed 404, Product Not Found`, async () => {
+            const productId = 24;
+            const response = await request(app)
+                .get(`/products/${productId}`)
+                .set(`Authorization`, `Bearer ${token}`);
+
+            // console.log(response.body, `<---------- response body`);
+
+            expect(response.body).toBeInstanceOf(Object);
+            expect(response.body).toHaveProperty(`message`, `Product with id ${productId} not found`);
+        })
+    })
+})
+
 describe(`PUT /products/:productId`, () => {
     describe(`Success`, () => {
         test(`Success 200`, async () => {
