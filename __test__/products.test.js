@@ -429,13 +429,13 @@ describe(`PATCH /products/:productId/upload-image`, () => {
     })
 
     describe(`Failed`, () => {
-        test.only(`Failed 401, Unauthenticated No Token`, async () => {
+        test(`Failed 401, Unauthenticated No Token`, async () => {
             const productId = 3;
             const response = await request(app)
                 .patch(`/products/${productId}/upload-image`)
                 .attach('image', './files/OIG1.jpg')
 
-            console.log(response.body, `<---------- response body`);
+            // console.log(response.body, `<---------- response body`);
 
             expect(response.body).toBeInstanceOf(Object);
             expect(response.body).toHaveProperty(`message`, `Unauthenticated`);
