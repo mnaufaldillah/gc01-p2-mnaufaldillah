@@ -691,7 +691,7 @@ Description:
     "search": "string",
     "categoryId": "integer",
     "createdAt": "string (DESC or ASC)",
-    "page": "integr"
+    "page": "integer"
 }
 ```
 
