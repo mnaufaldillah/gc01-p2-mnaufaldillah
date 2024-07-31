@@ -54,6 +54,8 @@ class UserController {
 
             const access_token = signToken({id: foundUser.id});
 
+            // console.log(access_token);
+
             res.status(200).json({access_token});
         } catch (error) {
             next(error);
