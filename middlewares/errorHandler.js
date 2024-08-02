@@ -4,6 +4,8 @@ function errorHandler(error, req, res, next) {
 
     // console.log(`Masuk Error Handle!!`);
 
+    console.log(error);
+
     switch (error.name) {
         case `SequelizeValidationError`:
         case `SequelizeUniqueConstraintError`:
